@@ -1,9 +1,9 @@
-FROM centos
+FROM centos:7.1.1503
 MAINTAINER Kolla Project (https://launchpad.net/kolla)
 
 # Set up repositories
 # This repository provides all dependencies used by RDO OpenStack
-RUN yum install -y https://rdoproject.org/repos/openstack-kilo/rdo-release-kilo.rpm
+RUN yum install -y http://rdoproject.org/repos/openstack-kilo/rdo-release-kilo.rpm
 # This repository provides latest packages built from trunk master into RPMs
 RUN curl http://trunk.rdoproject.org/centos70/current/delorean.repo -o /etc/yum.repos.d/delorean-current.repo
 # This repository provides crux which permits idempotent operation of RDO
@@ -12,7 +12,6 @@ RUN curl https://copr.fedoraproject.org/coprs/sdake/crux/repo/epel-7/sdake-crux-
 RUN curl https://copr.fedoraproject.org/coprs/sdake/pam.noaudit/repo/epel-7/sdake-pam.noaudit-epel-7.repo -o /etc/yum.repos.d/sdake-pam.noaudit-epel-7.repo
 
 # CentOS 7.1 workaround for conflicting packages with libvirt
-RUN rpm -e --nodeps systemd-container systemd-container-libs
 RUN rpm -e --nodeps yum-plugin-fastestmirror
 RUN yum -d 10 -y install systemd systemd-libs systemd-devel && yum clean all
 
