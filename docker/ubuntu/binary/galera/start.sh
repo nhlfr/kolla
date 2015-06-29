@@ -1,0 +1,1 @@
+../../../common/galera/start.sh
