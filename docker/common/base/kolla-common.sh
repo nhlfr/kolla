@@ -192,3 +192,10 @@ set_configs() {
             ;;
     esac
 }
+
+# Check Linux distribution that container runs
+is_distribution() {
+    local distribution=$1
+    grep $distribution /etc/os-release
+    return $!
+}

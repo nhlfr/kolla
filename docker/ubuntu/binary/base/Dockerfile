@@ -1,6 +1,8 @@
 FROM ubuntu:trusty
 MAINTAINER Kolla Project (https://launchpad.net/kolla)
 
+ENV DEBIAN_FRONTEND noninteractive
+
 RUN apt-get update \
     && apt-get install -y --no-install-recommends software-properties-common \
     && add-apt-repository cloud-archive:kilo \

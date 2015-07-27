@@ -12,7 +12,12 @@
 : ${DATADIR:=/var/lib/mysql}
 : ${TEMP_FILE:='/tmp/mysql-first-time.sql'}
 
-server_cnf=/etc/my.cnf.d/server.cnf
+if is_distribution "Ubuntu"; then
+    server_cnf=/etc/mysql/my.cnf
+    : > $server_cnf
+else
+    server_cnf=/etc/my.cnf.d/server.cnf
+fi
 
 crudini --set $server_cnf mysqld bind-address $BIND_ADDRESS
 crudini --set $server_cnf mysqld default-storage-engine $DEFAULT_STORAGE_ENGINE
