@@ -9,7 +9,8 @@ stack_user_domain_name = heat_user_domain
 
 rpc_backend = rabbit
 notification_driver = noop
-deferred_auth_method = password
+deferred_auth_method = trusts
+trusts_delegated_role = heat_stack_owner
 
 syslog_log_facility=LOG_LOCAL0
 use_syslog=yes
