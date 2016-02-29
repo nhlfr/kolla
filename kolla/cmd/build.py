@@ -30,7 +30,6 @@ import tempfile
 import threading
 import time
 
-import docker
 import git
 import jinja2
 from oslo_config import cfg
@@ -47,6 +46,7 @@ if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
 from kolla.common import config as common_config
+from kolla.common import docker
 from kolla import version
 
 logging.basicConfig()
@@ -72,11 +72,6 @@ class KollaRpmSetupUnknownConfig(Exception):
     pass
 
 
-def docker_client():
-    docker_kwargs = docker.utils.kwargs_from_env()
-    return docker.Client(version='auto', **docker_kwargs)
-
-
 class PushThread(threading.Thread):
 
     def __init__(self, conf, queue):
@@ -84,7 +79,7 @@ class PushThread(threading.Thread):
         self.setDaemon(True)
         self.conf = conf
         self.queue = queue
-        self.dc = docker_client()
+        self.dc = docker.docker_client()
 
     def run(self):
         while True:
